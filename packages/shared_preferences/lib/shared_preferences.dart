@@ -19,8 +19,9 @@ class SharedPreferences {
 
   static const String _prefix = 'flutter.';
   static SharedPreferences _instance;
-  static Future<SharedPreferences> getInstance() async {
-    if (_instance == null) {
+  static Future<SharedPreferences> getInstance(
+      {bool forceReload = false}) async {
+    if (_instance == null || forceReload) {
       final Map<Object, Object> fromSystem =
           await _kChannel.invokeMethod('getAll');
       assert(fromSystem != null);
